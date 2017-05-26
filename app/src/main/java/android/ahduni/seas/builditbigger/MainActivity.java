@@ -1,18 +1,25 @@
 package android.ahduni.seas.builditbigger;
 
+import android.ahduni.seas.jokedisplaylibrary.JokeDisplayActivity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.JokeLibrary;
+
 public class MainActivity extends AppCompatActivity {
 
+    public final String LOG_TAG = MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.i(LOG_TAG, "onCreate: MainActivity");
     }
 
     @Override
@@ -39,6 +46,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        String joke = JokeLibrary.getJoke();
+        Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
+
+        Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
+        jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, joke);
+        jokeDisplayIntent.setType("text/plain");
+        startActivity(jokeDisplayIntent);
     }
 }

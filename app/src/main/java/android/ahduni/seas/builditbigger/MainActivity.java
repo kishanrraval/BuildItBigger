@@ -12,14 +12,16 @@ import android.widget.Toast;
 
 import com.example.JokeLibrary;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GetJokeAsyncTask.OnGetJokeAsyncTaskCompleted
+{
 
     public final String LOG_TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i(LOG_TAG, "onCreate: MainActivity");
+        //Log.i(LOG_TAG, "onCreate: MainActivity");
     }
 
     @Override
@@ -38,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
             return true;
         }
 
@@ -46,11 +47,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view) {
-        String joke = JokeLibrary.getJoke();
-        //Toast.makeText(this, joke, Toast.LENGTH_SHORT).show();
 
+        new GetJokeAsyncTask(this).execute();
+    }
+
+    public void displayJokeActivity(String joke) {
         Intent jokeDisplayIntent = new Intent(this, JokeDisplayActivity.class);
         jokeDisplayIntent.putExtra(Intent.EXTRA_TEXT, joke);
         startActivity(jokeDisplayIntent);
+    }
+
+    @Override
+    public void onGetJokeTaskCompleted(String result) {
+        displayJokeActivity(result);
     }
 }

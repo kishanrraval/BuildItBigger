@@ -6,6 +6,7 @@
 
 package com.example.kisha.myapplication.backend;
 
+import com.example.JokeLibrary;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -37,4 +38,10 @@ public class MyEndpoint {
         return response;
     }
 
+    @ApiMethod(name = "getJoke")
+    public MyBean getJoke() {
+        MyBean response = new MyBean();
+        response.setData(JokeLibrary.getJoke());
+        return response;
+    }
 }

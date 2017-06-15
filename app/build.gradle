@@ -1,14 +1,6 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'MyAndroidKey'
-            keyPassword 'kishan'
-            storeFile file('C:/Users/kisha/Drives/D/Study/Courses/Android/Gradle/Submission/APK/androidmedia.keystore.jks')
-            storePassword '1111122222'
-        }
-    }
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
     defaultConfig {
